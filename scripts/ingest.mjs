@@ -14,7 +14,8 @@
 import { readFileSync } from "node:fs"
 import { createHmac } from "node:crypto"
 
-const SECRET = process.env.APP_STORE_INGEST_SECRET
+// trim: secret'ın sonundaki gizli newline/boşluk HMAC'i bozmasın (core de trim'ler).
+const SECRET = process.env.APP_STORE_INGEST_SECRET?.trim()
 const URL = process.env.INGEST_URL || "https://sentroy.com/api/app-store/ingest"
 
 if (!SECRET) {

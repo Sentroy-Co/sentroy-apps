@@ -9,6 +9,9 @@ on:
     branches: [main]
     paths:
       - "apps/**/*.sentroy-app.json"
+  # Manuel tetik (test / yeniden-ingest). before yok → script tüm
+  # apps/*.sentroy-app.json'ı boş-tree diff'iyle ele alır.
+  workflow_dispatch: {}
 
 concurrency:
   group: ingest-main
