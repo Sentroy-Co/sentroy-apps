@@ -1,0 +1,18 @@
+{
+  "name": "sentroy-apps",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Public catalog of Sentroy App Store manifests. Submit your app by opening a PR with <id>.sentroy-app.json under apps/.",
+  "scripts": {
+    "validate": "bun validate.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "manifestVersion": 1,
+  "identity": {
+    "id": "resend",
+    "name": "Resend",
+    "version": "1.0.0",
+    "tagline": "Email for developers"
+  },
+  "appearance": {
+    "logoUrl": "https://resend.com/static/logo.png",
+    "color": "#0f0f0f",
+    "category": "developer-tools",
+    "screenshots": [
+      { "url": "https://resend.com/static/screenshot-1.png", "alt": "Dashboard", "width": 1280, "height": 800 }
+    ]
+  },
+  "embed": {
+    "url": "https://app.resend.com/sentroy",
+    "injectedParams": ["lang", "fallbackLang", "theme", "companySlug", "token"],
+    "sandbox": { "allowForms": true, "allowPopups": false },
+    "minHeight": 480
+  },
+  "auth": {
+    "mode": "token",
+    "jwksAudience": "https://app.resend.com"
+  },
+  "i18n": {
+    "supportedLangs": ["en", "tr"],
+    "fallbackLang": "en"
+  },
+  "store": {
+    "description": "Send transactional and marketing email with a developer-first API.",
+    "longDescription": "# Resend\n\nResend is the email API for developers. Embed your Resend dashboard directly in Sentroy OS.\n\n- Transactional + marketing email\n- React Email templates\n- Deliverability insights",
+    "supportUrl": "https://resend.com/support",
+    "privacyUrl": "https://resend.com/legal/privacy-policy",
+    "termsUrl": "https://resend.com/legal/terms-of-service"
+  },
+  "developer": {
+    "companySlug": "resend"
+  },
+  "pricing": {
+    "model": "free"
+  },
+  "capabilities": {
+    "requestsUserIdentity": true
+  }
+}
