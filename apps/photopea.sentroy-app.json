@@ -1,0 +1,49 @@
+{
+  "manifestVersion": 1,
+  "identity": {
+    "id": "photopea",
+    "name": "Photopea",
+    "version": "1.0.0",
+    "tagline": "Free online photo editor"
+  },
+  "appearance": {
+    "logoUrl": "https://www.photopea.com/promo/icon512.png",
+    "color": "#474747",
+    "category": "design",
+    "screenshots": [
+      {
+        "url": "https://www.photopea.com/promo/screens/scr5.png",
+        "alt": "Photopea editor",
+        "width": 1280,
+        "height": 800
+      }
+    ]
+  },
+  "embed": {
+    "url": "https://www.photopea.com/",
+    "injectedParams": ["lang", "fallbackLang", "theme", "companySlug"],
+    "sandbox": { "allowForms": true, "allowPopups": false },
+    "minHeight": 600
+  },
+  "auth": {
+    "mode": "none"
+  },
+  "i18n": {
+    "supportedLangs": ["en", "tr"],
+    "fallbackLang": "en"
+  },
+  "store": {
+    "description": "Edit photos, apply effects, work with PSD and 40+ formats — right in the browser.",
+    "longDescription": "Photopea is a free, browser-based image editor with full PSD support, layers, masks, adjustment layers, vector tools and RAW support. Everything runs locally on the user's device; files never leave the browser.",
+    "privacyUrl": "https://www.photopea.com/privacy.html"
+  },
+  "developer": {
+    "companySlug": "enough-drama"
+  },
+  "pricing": {
+    "model": "free"
+  },
+  "capabilities": {
+    "requestsUserIdentity": false
+  }
+}
