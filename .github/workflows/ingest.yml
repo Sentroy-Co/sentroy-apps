@@ -1,0 +1,49 @@
+name: Ingest manifests
+
+# Bir PR main'e merge olunca (push), değişen apps/*.sentroy-app.json'ları
+# Sentroy'un ingest endpoint'ine HMAC-imzalı POST eder → pending app (source=
+# github). İnsan onayı yine admin kuyruğunda. Gerekli: repo secret
+# APP_STORE_INGEST_SECRET (core ile aynı). Opsiyonel repo variable INGEST_URL.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/**/*.sentroy-app.json"
+
+concurrency:
+  group: ingest-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changed
+        run: |
+          BEFORE="${{ github.event.before }}"
+          # İlk push / eksik parent → boş-tree ile diff (hepsini ele al).
+          if [ -z "$BEFORE" ] || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            BEFORE=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+          fi
+          FILES=$(git diff --name-only --diff-filter=AM "$BEFORE" "${{ github.sha }}" -- apps/ | grep '\.sentroy-app\.json$' || true)
+          echo "Changed manifests:"; echo "$FILES"
+          {
+            echo "files<<EOF"
+            echo "$FILES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Ingest
+        if: steps.changed.outputs.files != ''
+        # FILES env üzerinden — multiline değeri run script'ine inline expand
+        # etmek komutu kırar; $FILES word-split ile her dosya ayrı arg olur.
+        run: node scripts/ingest.mjs $FILES
+        env:
+          FILES: ${{ steps.changed.outputs.files }}
+          APP_STORE_INGEST_SECRET: ${{ secrets.APP_STORE_INGEST_SECRET }}
+          INGEST_URL: ${{ vars.INGEST_URL }}

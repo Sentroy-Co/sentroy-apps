@@ -82,8 +82,10 @@ schema in [`schema.ts`](schema.ts). Fix any reported issues until it's green.
 
 ## 3. Review & verification
 
-After merge, Sentroy reviews your submission. Before it goes live we verify you
-control the embed origin: serve a file at
+On merge, the manifest is synced to Sentroy's review queue automatically
+([`.github/workflows/ingest.yml`](.github/workflows/ingest.yml)) — a human still
+reviews and approves it. Before it goes live we verify you control the embed
+origin: serve a file at
 
 ```
 https://<your-embed-origin>/.well-known/sentroy-app-verification.txt
@@ -116,5 +118,13 @@ bun run validate
   never the Sentroy session cookie.
 - All security-relevant values (sandbox flags, granted scopes, origin) are computed
   server-side from your reviewed manifest; the raw file is not trusted at runtime.
+
+## Maintainers
+
+The ingest workflow needs a repo **secret** `APP_STORE_INGEST_SECRET` (the same
+value as Sentroy core's env) — it HMAC-signs each POST to the ingest endpoint.
+Optional repo **variable** `INGEST_URL` overrides the default
+(`https://sentroy.com/api/app-store/ingest`). Without the secret, the ingest job
+fails (validation still works); set it before relying on auto-sync.
 
 Questions? Open an issue.
